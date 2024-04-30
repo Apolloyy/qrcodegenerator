@@ -1,6 +1,7 @@
 import { Link2, Trash2 } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { useEffect, useState } from "react";
+import CopyToClipboard from "react-copy-to-clipboard";
 
 export default function FormEn() {
   const [url, setUrl] = useState("");
@@ -53,7 +54,9 @@ export default function FormEn() {
             value={url}
             className="sm:w-72 w-80 pl-4 pr-4 bg-neutral-900 outline-none"
           />
-          <Link2 cursor={"pointer"} />
+          <CopyToClipboard text={url}>
+            <Link2 cursor={"pointer"} />
+          </CopyToClipboard>
         </div>
         <button
           disabled={!url}
@@ -63,7 +66,11 @@ export default function FormEn() {
           <Trash2 />
         </button>
       </form>
-      {qrcodevalue.length > 0 && <div key={id}>{qrcode}</div>}
+      {qrcodevalue.length > 0 && (
+        <a href={url} key={id}>
+          {qrcode}
+        </a>
+      )}
     </>
   );
 }
